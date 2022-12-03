@@ -10,6 +10,7 @@ python = "^3.10"
 dash = "^2.7.0"
 pandas = "^1.5.2"
 dash-bootstrap-components = "^1.2.1"
+pandera = "^0.13.4"
 
 [tool.poetry.dev-dependencies]
 black = "^22.10.0"
