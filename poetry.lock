@@ -7,10 +7,10 @@ optional = false
 python-versions = ">=3.5"
 
 [package.extras]
-tests_no_zope = ["cloudpickle", "pytest-mypy-plugins", "mypy (>=0.900,!=0.940)", "pytest (>=4.3.0)", "pympler", "hypothesis", "coverage[toml] (>=5.0.2)"]
-tests = ["cloudpickle", "zope.interface", "pytest-mypy-plugins", "mypy (>=0.900,!=0.940)", "pytest (>=4.3.0)", "pympler", "hypothesis", "coverage[toml] (>=5.0.2)"]
-docs = ["sphinx-notfound-page", "zope.interface", "sphinx", "furo"]
-dev = ["cloudpickle", "pre-commit", "sphinx-notfound-page", "sphinx", "furo", "zope.interface", "pytest-mypy-plugins", "mypy (>=0.900,!=0.940)", "pytest (>=4.3.0)", "pympler", "hypothesis", "coverage[toml] (>=5.0.2)"]
+dev = ["cloudpickle", "coverage[toml] (>=5.0.2)", "furo", "hypothesis", "mypy (>=0.900,!=0.940)", "pre-commit", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "sphinx", "sphinx-notfound-page", "zope.interface"]
+docs = ["furo", "sphinx", "sphinx-notfound-page", "zope.interface"]
+tests = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy (>=0.900,!=0.940)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "zope.interface"]
+tests-no-zope = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy (>=0.900,!=0.940)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins"]
 
 [[package]]
 name = "black"
@@ -50,7 +50,7 @@ optional = false
 python-versions = ">=3.6.0"
 
 [package.extras]
-unicode_backport = ["unicodedata2"]
+unicode-backport = ["unicodedata2"]
 
 [[package]]
 name = "click"
@@ -87,12 +87,26 @@ Flask = ">=1.0.4"
 plotly = ">=5.0.0"
 
 [package.extras]
-celery = ["redis (>=3.5.3)", "celery[redis] (>=5.1.2)", "importlib-metadata (<5)"]
-ci = ["dash-flow-example (==0.0.5)", "dash-dangerously-set-inner-html", "flake8 (==3.9.2)", "flaky (==3.7.0)", "flask-talisman (==1.0.0)", "mimesis", "mock (==4.0.3)", "numpy", "preconditions", "pylint (==2.13.5)", "pytest-mock", "pytest-sugar (==0.9.5)", "py (==1.11.0)", "pytest-rerunfailures", "black (==21.6b0)", "isort (==4.3.21)", "orjson (==3.5.4)", "pyarrow (<3)", "pandas (==1.1.5)", "xlrd (<2)", "black (==22.3.0)", "orjson (==3.6.7)", "pyarrow", "openpyxl", "pandas (>=1.4.0)", "xlrd (>=2.0.1)"]
+celery = ["celery[redis] (>=5.1.2)", "importlib-metadata (<5)", "redis (>=3.5.3)"]
+ci = ["black (==21.6b0)", "black (==22.3.0)", "dash-dangerously-set-inner-html", "dash-flow-example (==0.0.5)", "flake8 (==3.9.2)", "flaky (==3.7.0)", "flask-talisman (==1.0.0)", "isort (==4.3.21)", "mimesis", "mock (==4.0.3)", "numpy", "openpyxl", "orjson (==3.5.4)", "orjson (==3.6.7)", "pandas (==1.1.5)", "pandas (>=1.4.0)", "preconditions", "py (==1.11.0)", "pyarrow", "pyarrow (<3)", "pylint (==2.13.5)", "pytest-mock", "pytest-rerunfailures", "pytest-sugar (==0.9.5)", "xlrd (<2)", "xlrd (>=2.0.1)"]
 compress = ["flask-compress"]
-dev = ["coloredlogs (>=15.0.1)", "fire (>=0.4.0)", "PyYAML (>=5.4.1)"]
+dev = ["PyYAML (>=5.4.1)", "coloredlogs (>=15.0.1)", "fire (>=0.4.0)"]
 diskcache = ["diskcache (>=5.2.1)", "multiprocess (>=0.70.12)", "psutil (>=5.8.0)"]
-testing = ["beautifulsoup4 (>=4.8.2)", "lxml (>=4.6.2)", "percy (>=2.0.2)", "pytest (>=6.0.2)", "requests[security] (>=2.21.0)", "selenium (>=3.141.0,<=4.2.0)", "waitress (>=1.4.4)", "multiprocess (>=0.70.12)", "psutil (>=5.8.0)", "cryptography (<3.4)"]
+testing = ["beautifulsoup4 (>=4.8.2)", "cryptography (<3.4)", "lxml (>=4.6.2)", "multiprocess (>=0.70.12)", "percy (>=2.0.2)", "psutil (>=5.8.0)", "pytest (>=6.0.2)", "requests[security] (>=2.21.0)", "selenium (>=3.141.0,<=4.2.0)", "waitress (>=1.4.4)"]
+
+[[package]]
+name = "dash-bootstrap-components"
+version = "1.2.1"
+description = "Bootstrap themed components for use in Plotly Dash"
+category = "main"
+optional = false
+python-versions = ">=3.6, <4"
+
+[package.dependencies]
+dash = ">=2.0.0"
+
+[package.extras]
+pandas = ["numpy", "pandas"]
 
 [[package]]
 name = "dash-core-components"
@@ -256,8 +270,8 @@ optional = false
 python-versions = ">=3.7"
 
 [package.extras]
-docs = ["furo (>=2022.9.29)", "proselint (>=0.13)", "sphinx-autodoc-typehints (>=1.19.4)", "sphinx (>=5.3)"]
-test = ["appdirs (==1.4.4)", "pytest-cov (>=4)", "pytest-mock (>=3.10)", "pytest (>=7.2)"]
+docs = ["furo (>=2022.9.29)", "proselint (>=0.13)", "sphinx (>=5.3)", "sphinx-autodoc-typehints (>=1.19.4)"]
+test = ["appdirs (==1.4.4)", "pytest (>=7.2)", "pytest-cov (>=4)", "pytest-mock (>=3.10)"]
 
 [[package]]
 name = "plotly"
@@ -291,7 +305,7 @@ optional = false
 python-versions = ">=3.6.8"
 
 [package.extras]
-diagrams = ["railroad-diagrams", "jinja2"]
+diagrams = ["jinja2", "railroad-diagrams"]
 
 [[package]]
 name = "pytest"
@@ -348,7 +362,7 @@ urllib3 = ">=1.21.1,<1.27"
 
 [package.extras]
 socks = ["PySocks (>=1.5.6,!=1.5.7)"]
-use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
+use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "six"
@@ -386,8 +400,8 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 
 [package.extras]
-brotli = ["brotlicffi (>=0.8.0)", "brotli (>=1.0.9)", "brotlipy (>=0.6.0)"]
-secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "certifi", "urllib3-secure-extra", "ipaddress"]
+brotli = ["brotli (>=1.0.9)", "brotlicffi (>=0.8.0)", "brotlipy (>=0.6.0)"]
+secure = ["certifi", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "ipaddress", "pyOpenSSL (>=0.14)", "urllib3-secure-extra"]
 socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
@@ -407,7 +421,7 @@ watchdog = ["watchdog"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "6498da08d04c828244f35611d1861e3c02f6e6da256d556e6dd1ae4ac2e77a39"
+content-hash = "b16024ef662ecd13546e9b3b75507e455f8aeb720b87f9b38de3ebdebda3c126"
 
 [metadata.files]
 attrs = [
@@ -456,6 +470,10 @@ colorama = [
 dash = [
     {file = "dash-2.7.0-py3-none-any.whl", hash = "sha256:101ea41e06c49526964bc1943b341c7c57cbb607d1ec7f73d7debdbcbb0789f6"},
     {file = "dash-2.7.0.tar.gz", hash = "sha256:0b8e550539760c9c4e1506f38e052a7123a15a86efc3aa9a2e0aa4e1a57f62bf"},
+]
+dash-bootstrap-components = [
+    {file = "dash-bootstrap-components-1.2.1.tar.gz", hash = "sha256:249b28d3240d64274e2cc18aee39a03e44c35e0920ec810e5ed4c1359272e063"},
+    {file = "dash_bootstrap_components-1.2.1-py3-none-any.whl", hash = "sha256:e52d94d2340e19bf35d7c89cbf4d95f30709ddc6e24d25cff4a5163ea7fd015b"},
 ]
 dash-core-components = [
     {file = "dash_core_components-2.0.0-py3-none-any.whl", hash = "sha256:52b8e8cce13b18d0802ee3acbc5e888cb1248a04968f962d63d070400af2e346"},
