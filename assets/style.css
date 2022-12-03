@@ -1,0 +1,25 @@
+hr {
+    border-top: 2px solid gray;
+}
+
+.app-div {
+    padding: 10px;
+}
+
+.dropdown-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.spec-dropdown {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    padding: 5px;
+}
+
+#spec-year-dropdown {
+    margin-left: 5px;
+    min-width: 6em;
+}
