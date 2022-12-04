@@ -2,8 +2,8 @@ import json
 
 import pandas as pd
 import pandera as pa
-from pandera.typing import Series
 import requests
+from pandera.typing import Series
 
 from . import API_SERVER_URL
 
@@ -27,7 +27,7 @@ class ItemResponseDF(pa.SchemaModel):
 
 
 class ItemTableDF(pa.SchemaModel):
-    id: Series[int] = pa.Field(alias="ID")
+    id: Series[int]
     item_number: Series[str] = pa.Field(alias="Item Number")
     short_description: Series[str] = pa.Field(alias="Short Description")
     long_description: Series[str] = pa.Field(alias="Long Description")
@@ -36,9 +36,9 @@ class ItemTableDF(pa.SchemaModel):
     spec_year: Series[str] = pa.Field(alias="Spec Year")
 
 
-def _fetch_all_item_data_in_spec_year(spec_year: str) -> str:
-    url = f"{API_SERVER_URL}/item/query/"
-    params = {f"in_spec_{spec_year.strip()}": "true", "limit": 0}
+def _fetch_all_item_data() -> str:
+    url = f"{API_SERVER_URL}/item/all"
+    params = {"limit": 0}
     response = requests.get(url, params)
     decoded_json = response.json()
 
@@ -52,31 +52,31 @@ def _read_item_json(json_str: str) -> ItemResponseDF:
     return ItemResponseDF(df)
 
 
-def _transform_item_data(
+def load_item_data() -> ItemResponseDF:
+    json_str = _fetch_all_item_data()
+    item_response_df = _read_item_json(json_str)
+
+    return item_response_df
+
+
+def transform_item_response_df(
     item_response_df: ItemResponseDF, spec_year: str
 ) -> ItemTableDF:
-    df = pd.DataFrame()
+    filtered_df = item_response_df[item_response_df[f"in_spec_{spec_year}"]]
 
-    df["ID"] = item_response_df["id"]
+    df = pd.DataFrame()
+    df["id"] = filtered_df["id"]
     df["Item Number"] = (
-        item_response_df["spec_code"]
+        filtered_df["spec_code"]
         + "."
-        + item_response_df["unit_code"]
+        + filtered_df["unit_code"]
         + "/"
-        + item_response_df["item_code"]
+        + filtered_df["item_code"]
     )
-    df["Short Description"] = item_response_df["short_description"]
-    df["Long Description"] = item_response_df["long_description"]
-    df["Unit Name"] = item_response_df["unit"]
-    df["Plan Unit Description"] = item_response_df["unit_abbreviation"]
+    df["Short Description"] = filtered_df["short_description"]
+    df["Long Description"] = filtered_df["long_description"]
+    df["Unit Name"] = filtered_df["unit"]
+    df["Plan Unit Description"] = filtered_df["unit_abbreviation"]
     df["Spec Year"] = spec_year
 
     return ItemTableDF(df)
-
-
-def load_item_table_df(spec_year: str) -> ItemTableDF:
-    json_str = _fetch_all_item_data_in_spec_year(spec_year)
-    item_response_df = _read_item_json(json_str)
-    item_table_df = _transform_item_data(item_response_df, spec_year)
-
-    return item_table_df

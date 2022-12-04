@@ -1,7 +1,7 @@
-from typing import Callable
-
-from dash import Dash, html, dash_table
+from dash import Dash, dash_table, html
 from dash.dependencies import Input, Output
+
+from src.data.item_data import ItemData
 
 from . import ids
 
@@ -33,25 +33,7 @@ style_header = {
 row_selectable = "single"
 
 
-def render(app: Dash, item_loader_func: Callable) -> html.Div:
-    @app.callback(
-        Output(ids.ITEM_DATA_TABLE_CONTAINER, "children"),
-        Input(ids.SPEC_YEAR_DROPDOWN, "value"),
-    )
-    def update_data_table(spec_year: str) -> dash_table.DataTable:
-        df = item_loader_func(spec_year)
-
-        item_data_table = dash_table.DataTable(
-            id=ids.ITEM_DATA_TABLE,
-            data=df.to_dict("records"),
-            columns=columns,
-            page_size=20,
-            style_cell=style_cell,
-            style_header=style_header,
-            row_selectable=row_selectable,
-        )
-
-        return item_data_table
+def render(app: Dash, item_data: ItemData) -> html.Div:
 
     blank_item_data_table = dash_table.DataTable(
         id=ids.ITEM_DATA_TABLE,
@@ -62,4 +44,24 @@ def render(app: Dash, item_loader_func: Callable) -> html.Div:
         row_selectable=row_selectable,
     )
 
-    return html.Div(id=ids.ITEM_DATA_TABLE_CONTAINER, children=blank_item_data_table)
+    @app.callback(
+        Output(ids.ITEM_DATA_TABLE_CONTAINER, "children"),
+        Input(ids.SPEC_YEAR_DROPDOWN, "value"),
+    )
+    def update_data_table(spec_year: str) -> dash_table.DataTable:
+        if spec_year == "":
+            return blank_item_data_table
+
+        item_data_table = dash_table.DataTable(
+            id=ids.ITEM_DATA_TABLE,
+            data=item_data.get_item_table_data(spec_year),
+            columns=columns,
+            page_size=20,
+            style_cell=style_cell,
+            style_header=style_header,
+            row_selectable=row_selectable,
+        )
+
+        return item_data_table
+
+    return html.Div(id=ids.ITEM_DATA_TABLE_CONTAINER)
