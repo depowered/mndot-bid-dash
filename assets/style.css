@@ -28,3 +28,8 @@ hr {
     width: 95%;
     margin: 0 auto;
 }
+
+.selected-item-container {
+    display: flex;
+    justify-content: center;
+}
