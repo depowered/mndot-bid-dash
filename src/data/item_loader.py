@@ -5,6 +5,8 @@ import pandera as pa
 from pandera.typing import Series
 import requests
 
+from . import API_SERVER_URL
+
 
 class ItemResponseDF(pa.SchemaModel):
     id: Series[pa.Int]
@@ -24,7 +26,7 @@ class ItemResponseDF(pa.SchemaModel):
         coerce = True
 
 
-class ItemDataTableInput(pa.SchemaModel):
+class ItemTableDF(pa.SchemaModel):
     id: Series[int] = pa.Field(alias="ID")
     item_number: Series[str] = pa.Field(alias="Item Number")
     short_description: Series[str] = pa.Field(alias="Short Description")
@@ -34,8 +36,8 @@ class ItemDataTableInput(pa.SchemaModel):
     spec_year: Series[str] = pa.Field(alias="Spec Year")
 
 
-def _fetch_all_item_data_in_spec_year(api_server_url: str, spec_year: str) -> str:
-    url = f"{api_server_url}/item/query/"
+def _fetch_all_item_data_in_spec_year(spec_year: str) -> str:
+    url = f"{API_SERVER_URL}/item/query/"
     params = {f"in_spec_{spec_year.strip()}": "true", "limit": 0}
     response = requests.get(url, params)
     decoded_json = response.json()
@@ -52,7 +54,7 @@ def _read_item_json(json_str: str) -> ItemResponseDF:
 
 def _transform_item_data(
     item_response_df: ItemResponseDF, spec_year: str
-) -> ItemDataTableInput:
+) -> ItemTableDF:
     df = pd.DataFrame()
 
     df["ID"] = item_response_df["id"]
@@ -69,12 +71,12 @@ def _transform_item_data(
     df["Plan Unit Description"] = item_response_df["unit_abbreviation"]
     df["Spec Year"] = spec_year
 
-    return ItemDataTableInput(df)
+    return ItemTableDF(df)
 
 
-def load_all_items_in_spec_year(api_server_url: str, spec_year: str) -> ItemResponseDF:
-    json_str = _fetch_all_item_data_in_spec_year(api_server_url, spec_year)
+def load_item_table_df(spec_year: str) -> ItemTableDF:
+    json_str = _fetch_all_item_data_in_spec_year(spec_year)
     item_response_df = _read_item_json(json_str)
-    item_data_table_input = _transform_item_data(item_response_df, spec_year)
+    item_table_df = _transform_item_data(item_response_df, spec_year)
 
-    return item_data_table_input
+    return item_table_df

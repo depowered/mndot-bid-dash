@@ -23,3 +23,8 @@ hr {
     margin-left: 5px;
     min-width: 6em;
 }
+
+.dash-table-container {
+    width: 95%;
+    margin: 0 auto;
+}
