@@ -27,10 +27,11 @@ hr {
 }
 
 #item-search-input {
-    min-width: 300px;
+    min-width: 400px;
+    margin-right: 0.5em;
 }
 
-#dash-table-container {
+#item-data-table-container {
     width: 95%;
     margin: 0 auto;
 }
@@ -38,4 +39,11 @@ hr {
 #selected-item-container {
     display: flex;
     justify-content: center;
+    padding-top: 10px;
+}
+
+#selected-item-button {
+    display: grid;
+    width: 35%;
+    padding: 0.5em;
 }

@@ -1,3 +1,4 @@
+import dash
 from dash import Dash, html
 from dash.dependencies import Input, Output
 
@@ -6,33 +7,39 @@ from src.data.item_data import ItemData
 from . import ids
 
 
-def render(app: Dash, item_data: ItemData) -> html.Div:
+def render(app: Dash, item_data: ItemData) -> html.Button:
     @app.callback(
-        Output(ids.SELECTED_ITEM, "children"),
+        Output(ids.SELECTED_ITEM_CONTAINER, "children"),
         Input(ids.ITEM_DATA_TABLE, "selected_row_ids"),
     )
-    def update_selected_item(selected_row_ids: list[int]) -> html.H4:
+    def update_button_text(selected_row_ids: list[str]) -> html.Button:
         if selected_row_ids is None:
-            return html.H4(
-                id=ids.SELECTED_ITEM, children="Select a bid item from the table"
-            )
+            return dash.no_update
 
-        if selected_row_ids is not None:
-            item = item_data.get_item_dict(selected_row_ids[0])
-            item_number = (
-                str(item.get("spec_code"))
-                + "."
-                + str(item.get("unit_code"))
-                + "/"
-                + str(item.get("item_code"))
-            )
-            item_description = item.get("short_description")
-            return html.H4(
-                id=ids.SELECTED_ITEM,
-                children=f"Selected Item: {item_number} - {item_description}",
-            )
+        item_id = int(selected_row_ids[0])
+        item = item_data.get_item_dict(item_id)
+        item_number = (
+            str(item.get("spec_code"))
+            + "."
+            + str(item.get("unit_code"))
+            + "/"
+            + str(item.get("item_code"))
+        )
+        item_description = item.get("short_description")
 
-    return html.Div(
-        className="selected-item-container",
-        children=html.H4(id=ids.SELECTED_ITEM),
+        return html.Button(
+            id=ids.SELECTED_ITEM_BUTTON,
+            children=[
+                html.Span("View Bid Data For:"),
+                html.Span(f"{item_number} - {item_description}"),
+            ],
+            n_clicks=0,
+            # style={"display": "grid"},
+        )
+
+    return html.Button(
+        id=ids.SELECTED_ITEM_BUTTON,
+        children="Select an item",
+        n_clicks=0,
+        # style={"display": "none"},
     )

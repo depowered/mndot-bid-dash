@@ -18,6 +18,9 @@ def create_layout(app: Dash, item_data) -> html.Div:
                 id=ids.ITEM_DATA_TABLE_CONTAINER,
                 children=item_table.render(app, item_data),
             ),
-            selected_item.render(app, item_data),
+            html.Div(
+                id=ids.SELECTED_ITEM_CONTAINER,
+                children=selected_item.render(app, item_data),
+            ),
         ],
     )

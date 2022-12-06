@@ -13,3 +13,5 @@ ITEM_DATA_TABLE = "item-data-table"
 ITEM_DATA_TABLE_CONTAINER = "item-data-table-container"
 
 SELECTED_ITEM = "selected-item"
+SELECTED_ITEM_BUTTON = "selected-item-button"
+SELECTED_ITEM_CONTAINER = "selected-item-container"
