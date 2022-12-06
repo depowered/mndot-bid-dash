@@ -6,30 +6,36 @@ hr {
     padding: 10px;
 }
 
-.dropdown-container {
+#spec-year-selector-container {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
 }
 
-.spec-dropdown {
+.spec-year-selector-item {
+    padding: 10px;
+}
+
+#item-search-container {
     display: flex;
-    align-items: center;
-    margin: 0 auto;
-    padding: 5px;
+    justify-content: center;
+    margin-bottom: 1em;
 }
 
-#spec-year-dropdown {
-    margin-left: 5px;
-    min-width: 6em;
+#item-search {
+    display: flex;
+    justify-content: center;
 }
 
-.dash-table-container {
+#item-search-input {
+    min-width: 300px;
+}
+
+#dash-table-container {
     width: 95%;
     margin: 0 auto;
 }
 
-.selected-item-container {
+#selected-item-container {
     display: flex;
     justify-content: center;
 }

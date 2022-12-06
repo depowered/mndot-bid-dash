@@ -1,19 +1,23 @@
 from dash import Dash, html
 
-from . import item_table, selected_item, spec_year_dropdown
+from . import classes, ids, item_search, item_table, selected_item, spec_year_selector
 
 
 def create_layout(app: Dash, item_data) -> html.Div:
     return html.Div(
-        className="app-div",
+        className=classes.APP_DIV,
         children=[
             html.H1(app.title),
             html.Hr(),
             html.Div(
-                className="dropdown-container",
-                children=[spec_year_dropdown.render(app)],
+                id=ids.SPEC_YEAR_SELECTOR_CONTAINER,
+                children=spec_year_selector.render(),
             ),
-            item_table.render(app, item_data),
+            html.Div(id=ids.ITEM_SEARCH_CONTAINER, children=item_search.render()),
+            html.Div(
+                id=ids.ITEM_DATA_TABLE_CONTAINER,
+                children=item_table.render(app, item_data),
+            ),
             selected_item.render(app, item_data),
         ],
     )
