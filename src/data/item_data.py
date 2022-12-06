@@ -1,7 +1,7 @@
 from .item_loader import (
     ItemResponseDF,
     ItemTableDF,
-    load_item_data,
+    load_item_response_df,
     transform_item_response_df,
 )
 
@@ -11,13 +11,16 @@ ItemTableData = list[ItemDict]
 
 class ItemData:
     def __init__(self) -> None:
-        self._item_response_df: ItemResponseDF = load_item_data()
-        self._2016_item_table_df: ItemTableDF = self._load_item_table_df("2016")
-        self._2018_item_table_df: ItemTableDF = self._load_item_table_df("2018")
-        self._2020_item_table_df: ItemTableDF = self._load_item_table_df("2020")
-
-    def _load_item_table_df(self, spec_year: str) -> ItemTableDF:
-        return transform_item_response_df(self._item_response_df, spec_year)
+        self._item_response_df: ItemResponseDF = load_item_response_df()
+        self._2016_item_table_df: ItemTableDF = transform_item_response_df(
+            self._item_response_df, "2016"
+        )
+        self._2018_item_table_df: ItemTableDF = transform_item_response_df(
+            self._item_response_df, "2018"
+        )
+        self._2020_item_table_df: ItemTableDF = transform_item_response_df(
+            self._item_response_df, "2020"
+        )
 
     def _get_item_table_df(self, spec_year: str) -> ItemTableDF:
         if spec_year == "2016":
@@ -38,9 +41,9 @@ class ItemData:
 
         value = search_value.strip().upper()
 
-        item_number_expr = f"`Item Number`.str.contains(@value)"
-        short_desc_expr = f"`Short Description`.str.contains(@value)"
-        long_desc_expr = f"`Long Description`.str.contains(@value)"
+        item_number_expr = "`Item Number`.str.contains(@value)"
+        short_desc_expr = "`Short Description`.str.contains(@value)"
+        long_desc_expr = "`Long Description`.str.contains(@value)"
         full_expr = f"{item_number_expr} or {short_desc_expr} or {long_desc_expr}"
 
         df = self._get_item_table_df(spec_year)

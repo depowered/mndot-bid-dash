@@ -52,7 +52,7 @@ def _read_item_json(json_str: str) -> ItemResponseDF:
     return ItemResponseDF(df)
 
 
-def load_item_data() -> ItemResponseDF:
+def load_item_response_df() -> ItemResponseDF:
     json_str = _fetch_all_item_data()
     item_response_df = _read_item_json(json_str)
 
