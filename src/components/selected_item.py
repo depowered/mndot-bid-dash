@@ -18,14 +18,8 @@ def render(app: Dash, item_data: ItemData) -> html.Button:
 
         item_id = int(selected_row_ids[0])
         item = item_data.get_item_dict(item_id)
-        item_number = (
-            str(item.get("spec_code"))
-            + "."
-            + str(item.get("unit_code"))
-            + "/"
-            + str(item.get("item_code"))
-        )
-        item_description = item.get("short_description")
+        item_number = item["Item Number"]
+        item_description = item["Short Description"]
 
         return html.Button(
             id=ids.SELECTED_ITEM_BUTTON,
@@ -34,12 +28,10 @@ def render(app: Dash, item_data: ItemData) -> html.Button:
                 html.Span(f"{item_number} - {item_description}"),
             ],
             n_clicks=0,
-            # style={"display": "grid"},
         )
 
     return html.Button(
         id=ids.SELECTED_ITEM_BUTTON,
         children="Select an item",
         n_clicks=0,
-        # style={"display": "none"},
     )
