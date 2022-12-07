@@ -1,5 +1,5 @@
 import json
-from datetime import date
+from datetime import datetime
 
 import pandas as pd
 import pandera as pa
@@ -11,7 +11,7 @@ from . import API_SERVER_URL
 
 class ContractResponseDF(pa.SchemaModel):
     id: Series[int]
-    letting_date: Series[date]
+    letting_date: Series[datetime]
     sp_number: Series[str]
     district: Series[str]
     county: Series[str]
@@ -47,7 +47,7 @@ def load_contract_response_df() -> ContractResponseDF:
 
 class ContractDateDF(pa.SchemaModel):
     contract_id: Series[int]
-    letting_date: Series[date] = pa.Field(alias="Letting Date")
+    letting_date: Series[datetime] = pa.Field(alias="Letting Date")
 
 
 def get_contract_date_df(contract_response_df: ContractResponseDF) -> ContractDateDF:

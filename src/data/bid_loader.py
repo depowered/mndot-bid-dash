@@ -1,5 +1,5 @@
 import json
-from datetime import date
+from datetime import datetime
 
 import pandas as pd
 import pandera as pa
@@ -69,7 +69,7 @@ def _transform_bid_response_df(bid_response_df: BidResponseDF) -> TransformedBid
 class BidFigureDF(pa.SchemaModel):
     bid_id: Series[int]
     contract_id: Series[int]
-    letting_date: Series[date] = pa.Field(alias="Letting Date")
+    letting_date: Series[datetime] = pa.Field(alias="Letting Date")
     bidder_id: Series[int]
     item_id: Series[int]
     item_number: Series[str] = pa.Field(alias="Item Number")
@@ -105,6 +105,7 @@ def _join_contract_and_item_data(
         how="left",
         on="contract_id",
     )
+    # merge_contracts["Letting Date"].astype(date)
 
     # Drop extra columns by validating with output DF schema
     df_filtered = BidFigureDF(merge_contracts)
