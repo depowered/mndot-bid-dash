@@ -1,9 +1,5 @@
-hr {
-    border-top: 2px solid gray;
-}
-
-.app-div {
-    padding: 10px;
+.navbar-brand {
+    font-size: xx-large;
 }
 
 #spec-year-selector-container {

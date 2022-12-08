@@ -9,6 +9,7 @@ from . import (
     ids,
     item_search,
     item_table,
+    navbar,
     selected_item,
     spec_year_selector,
 )
@@ -20,8 +21,7 @@ def create_layout(
     return html.Div(
         className=classes.APP_DIV,
         children=[
-            html.H1(app.title),
-            html.Hr(),
+            navbar.render(),
             html.Div(
                 id=ids.SPEC_YEAR_SELECTOR_CONTAINER,
                 children=spec_year_selector.render(),
