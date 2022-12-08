@@ -5,6 +5,8 @@
 #spec-year-selector-container {
     display: flex;
     justify-content: center;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
 }
 
 .spec-year-selector-item {
@@ -12,18 +14,18 @@
 }
 
 #item-search-container {
-    display: flex;
     justify-content: center;
     margin-bottom: 1em;
 }
 
-#item-search {
+.item-search {
     display: flex;
     justify-content: center;
+    max-width: 550px;
+    margin: 0 auto;
 }
 
 #item-search-input {
-    min-width: 400px;
     margin-right: 0.5em;
 }
 
@@ -42,4 +44,23 @@
     display: grid;
     width: 35%;
     padding: 0.5em;
+}
+
+/*
+restyle radio items 
+https://dash-bootstrap-components.opensource.faculty.ai/docs/components/button_group/
+*/
+.radio-group .form-check {
+    padding-left: 0;
+}
+
+.radio-group .btn-group>.form-check:not(:last-child)>.btn {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.radio-group .btn-group>.form-check:not(:first-child)>.btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: -1px;
 }

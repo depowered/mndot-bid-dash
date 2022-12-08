@@ -1,12 +1,12 @@
 import dash_bootstrap_components as dbc
-from dash import dcc, html
+from dash import html
 
 from . import ids
 
 
 def render() -> html.Div:
 
-    search_field = dcc.Input(
+    search_field = dbc.Input(
         id=ids.ITEM_SEARCH_INPUT,
         type="search",
         placeholder="Search by Item Number or Description",

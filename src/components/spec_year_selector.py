@@ -1,13 +1,16 @@
-from dash import dcc
+import dash_bootstrap_components as dbc
 
 from . import classes, ids
 
 
-def render() -> dcc.RadioItems:
+def render() -> dbc.RadioItems:
 
-    radio_items = dcc.RadioItems(
+    radio_items = dbc.RadioItems(
         id=ids.SPEC_YEAR_SELECTOR,
-        labelClassName=classes.SPEC_YEAR_SELECTOR_ITEM,
+        className="btn-group",
+        inputClassName="btn-check",
+        labelClassName="btn btn-outline-primary",
+        labelCheckedClassName="active",
         options=[
             {"label": "Spec Year 2020", "value": "2020"},
             {"label": "Spec Year 2018", "value": "2018"},
