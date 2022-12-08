@@ -5,7 +5,7 @@ from dash.dependencies import Input, Output, State
 
 from src.data.bid_data import BidDataFactory
 
-from . import bid_mean_plot, bid_scatter_plot, ids
+from . import bid_mean_plot, bid_scatter_plot, bid_summary_table, ids
 
 
 def render(app: Dash, bid_data_factory: BidDataFactory) -> html.Div:
@@ -22,6 +22,7 @@ def render(app: Dash, bid_data_factory: BidDataFactory) -> html.Div:
 
         item_id = int(selected_row_ids[0])
         bid_data = bid_data_factory(item_id)
+        summary_table = bid_summary_table.render(app, bid_data)
         scatter_plot = bid_scatter_plot.render(app, bid_data)
         mean_plot = bid_mean_plot.render(app, bid_data)
 
@@ -31,9 +32,11 @@ def render(app: Dash, bid_data_factory: BidDataFactory) -> html.Div:
                 dbc.Tabs(
                     id=ids.BID_ANALYTICS_TABS,
                     children=[
-                        dbc.Tab(label="Unit Price vs Time", children=scatter_plot),
+                        dbc.Tab(label="Bid Summary Table", children=summary_table),
                         dbc.Tab(label="Average Unit Price", children=mean_plot),
+                        dbc.Tab(label="Unit Price vs Time", children=scatter_plot),
                     ],
+                    active_tab="tab-0",
                 )
             ],
         )

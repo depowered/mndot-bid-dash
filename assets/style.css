@@ -56,6 +56,22 @@
     margin: 0 auto;
 }
 
+#bid-analytics-tabs {
+    justify-content: center;
+}
+
+.nav-tabs .nav-link:hover,
+.nav-tabs .nav-link.active {
+    background-color: rgb(55, 90, 127);
+    border-color: rgb(55, 90, 127);
+}
+
+.nav-tabs .nav-link {
+    border-left-color: rgb(55, 90, 127);
+    border-top-color: rgb(55, 90, 127);
+    border-right-color: rgb(55, 90, 127);
+}
+
 /*
 restyle radio items 
 https://dash-bootstrap-components.opensource.faculty.ai/docs/components/button_group/

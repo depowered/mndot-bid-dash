@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Callable
 
 import numpy as np
 import pandas as pd
@@ -29,9 +30,49 @@ class BidData:
         mask = self.bid_figure_df["Bid Type"] == bid_type
         return self.bid_figure_df[mask]
 
+    def _compute_agg_grouped_by_year_and_bid_type(
+        self, agg_func: Callable, agg_column: str
+    ) -> pd.DataFrame:
+        df = self.bid_figure_df
+        # Add year column
+        df["Year"] = df["Letting Date"].dt.year
+
+        # Remove extra columns
+        filtered_df = df.filter(["Year", "Bid Type", agg_column])
+
+        # Compute aggregation
+        agg = filtered_df.groupby(by=["Year", "Bid Type"]).agg(agg_func)
+
+        return agg
+
     def mean_unit_price_by_year(self) -> pd.DataFrame:
         filter_columns = ["Letting Date", "Bid Type", "Unit Price"]
         df = self.bid_figure_df.filter(items=filter_columns, axis=1)
         df["Year"] = df["Letting Date"].dt.year
         group = df.groupby(by=["Year", "Bid Type"])
         return group.agg(np.mean).reset_index()
+
+    def summary_table_df(self) -> pd.DataFrame:
+        avg_unit_price = self._compute_agg_grouped_by_year_and_bid_type(
+            np.mean, "Unit Price"
+        )
+        contract_occur_count = self._compute_agg_grouped_by_year_and_bid_type(
+            np.count_nonzero, "contract_id"
+        )
+        total_quanity = self._compute_agg_grouped_by_year_and_bid_type(
+            np.sum, "Quantity"
+        )
+
+        joined = avg_unit_price.join(
+            other=[contract_occur_count, total_quanity], how="left"
+        )
+
+        df = joined.reset_index()
+        out_df = pd.DataFrame()
+        out_df["Year"] = df["Year"]
+        out_df["Bid Type"] = df["Bid Type"]
+        out_df["Average Unit Price"] = df["Unit Price"].apply(lambda x: f"${x:,.2f}")
+        out_df["Total Quanity"] = df["Quantity"].apply(lambda x: f"{x:,.0f}")
+        out_df["Count of Bids Aggregated"] = df["contract_id"]
+
+        return out_df

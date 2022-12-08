@@ -1,6 +1,6 @@
 import dash_bootstrap_components as dbc
 
-from . import classes, ids
+from . import ids
 
 
 def render() -> dbc.RadioItems:
