@@ -1,4 +1,5 @@
 import dash
+import dash_bootstrap_components as dbc
 from dash import Dash, html
 from dash.dependencies import Input, Output, State
 
@@ -24,6 +25,17 @@ def render(app: Dash, bid_data_factory: BidDataFactory) -> html.Div:
         scatter_plot = bid_scatter_plot.render(app, bid_data)
         mean_plot = bid_mean_plot.render(app, bid_data)
 
-        return html.Div(id=ids.BID_ANALYTICS, children=[scatter_plot, mean_plot])
+        return html.Div(
+            id=ids.BID_ANALYTICS,
+            children=[
+                dbc.Tabs(
+                    id=ids.BID_ANALYTICS_TABS,
+                    children=[
+                        dbc.Tab(label="Unit Price vs Time", children=scatter_plot),
+                        dbc.Tab(label="Average Unit Price", children=mean_plot),
+                    ],
+                )
+            ],
+        )
 
     return html.Div(id=ids.BID_ANALYTICS, children=None)

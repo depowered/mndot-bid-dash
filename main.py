@@ -1,5 +1,5 @@
+import dash_bootstrap_components as dbc
 from dash import Dash
-from dash_bootstrap_components.themes import BOOTSTRAP
 
 from src.components.layout import create_layout
 from src.data.bid_data import BidDataFactory
@@ -13,11 +13,11 @@ def main() -> None:
     contract_data = ContractData()
     bid_data_factory = BidDataFactory(item_data, contract_data)
 
-    app = Dash(external_stylesheets=[BOOTSTRAP])
+    app = Dash(external_stylesheets=[dbc.themes.DARKLY])
     app.title = "MnDOT Bid Prices Dashboard"
     app.layout = create_layout(app, item_data, bid_data_factory)
-    app.run()
-    # app.run(dev_tools_hot_reload=True)
+    # app.run()
+    app.run(dev_tools_hot_reload=True)
 
 
 if __name__ == "__main__":

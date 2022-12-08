@@ -20,6 +20,7 @@ SELECTED_ITEM_CONTAINER = "selected-item-container"
 # Bid Analytics
 BID_ANALYTICS_CONTAINER = "bid-analytics-container"
 BID_ANALYTICS = "bid-analytics"
+BID_ANALYTICS_TABS = "bid-analytics-tabs"
 BID_SCATTER_PLOT = "bid-scatter-plot"
 BID_SCATTER_PLOT_GRAPH = "bid-scatter-plot-graph"
 BID_MEAN_PLOT = "bid-mean-plot"

@@ -46,6 +46,16 @@
     padding: 0.5em;
 }
 
+#bid-analytics-container {
+    margin-top: 36px;
+    margin-bottom: 30vh;
+}
+
+#bid-analytics {
+    width: 70vw;
+    margin: 0 auto;
+}
+
 /*
 restyle radio items 
 https://dash-bootstrap-components.opensource.faculty.ai/docs/components/button_group/
