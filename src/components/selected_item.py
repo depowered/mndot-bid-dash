@@ -1,4 +1,3 @@
-import dash
 import dash_bootstrap_components as dbc
 from dash import Dash, html
 from dash.dependencies import Input, Output
@@ -15,7 +14,12 @@ def render(app: Dash, item_data: ItemData) -> dbc.Button:
     )
     def update_button_text(selected_row_ids: list[str]) -> dbc.Button:
         if selected_row_ids is None:
-            return dash.no_update
+            return dbc.Button(
+                id=ids.SELECTED_ITEM_BUTTON,
+                children="Select an item using the buttons in the left-most table column",
+                n_clicks=0,
+                color="dark",
+            )
 
         item_id = int(selected_row_ids[0])
         item = item_data.get_item_dict(item_id)
@@ -32,6 +36,4 @@ def render(app: Dash, item_data: ItemData) -> dbc.Button:
             outline=False,
         )
 
-    return dbc.Button(
-        id=ids.SELECTED_ITEM_BUTTON, children="Select an item", n_clicks=0, color="dark"
-    )
+    return html.Div(children=None)

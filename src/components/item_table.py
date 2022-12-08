@@ -1,24 +1,12 @@
-from dash import Dash, State, ctx, dash_table, no_update
+from dash import Dash, State, ctx, dash_table, html, no_update
 from dash.dependencies import Input, Output
 
 from src.data.item_data import ItemData, ItemTableData
 
 from . import ids
 
-blank_row_data = [
-    {
-        "id": 0,
-        "Item Number": "",
-        "Short Description": "",
-        "Long Description": "",
-        "Unit Name": "",
-        "Plan Unit Description": "",
-        "Spec Year": "",
-    }
-]
 
-
-def _create_data_table(data: ItemTableData = blank_row_data) -> dash_table.DataTable:
+def _create_data_table(data: ItemTableData) -> dash_table.DataTable:
     columns = [
         {"id": "Item Number", "name": "Item Number"},
         {"id": "Short Description", "name": "Short Description"},
@@ -71,7 +59,7 @@ def _create_data_table(data: ItemTableData = blank_row_data) -> dash_table.DataT
     )
 
 
-def render(app: Dash, item_data: ItemData) -> dash_table.DataTable:
+def render(app: Dash, item_data: ItemData) -> html.Div:
     @app.callback(
         Output(ids.ITEM_DATA_TABLE_CONTAINER, "children"),
         State(ids.SPEC_YEAR_SELECTOR, "value"),
@@ -85,6 +73,6 @@ def render(app: Dash, item_data: ItemData) -> dash_table.DataTable:
             return no_update
 
         data = item_data.query(spec_year, search_value)
-        return _create_data_table(data)
+        return html.Div(children=_create_data_table(data))
 
-    return _create_data_table()
+    return html.Div(children=None)
