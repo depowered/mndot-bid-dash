@@ -1,4 +1,5 @@
 import dash
+import dash_bootstrap_components as dbc
 from dash import Dash, html
 from dash.dependencies import Input, Output
 
@@ -7,12 +8,12 @@ from src.data.item_data import ItemData
 from . import ids
 
 
-def render(app: Dash, item_data: ItemData) -> html.Button:
+def render(app: Dash, item_data: ItemData) -> dbc.Button:
     @app.callback(
         Output(ids.SELECTED_ITEM_CONTAINER, "children"),
         Input(ids.ITEM_DATA_TABLE, "selected_row_ids"),
     )
-    def update_button_text(selected_row_ids: list[str]) -> html.Button:
+    def update_button_text(selected_row_ids: list[str]) -> dbc.Button:
         if selected_row_ids is None:
             return dash.no_update
 
@@ -21,17 +22,16 @@ def render(app: Dash, item_data: ItemData) -> html.Button:
         item_number = item["Item Number"]
         item_description = item["Short Description"]
 
-        return html.Button(
+        return dbc.Button(
             id=ids.SELECTED_ITEM_BUTTON,
             children=[
                 html.Span("View Bid Data For:"),
                 html.Span(f"{item_number} - {item_description}"),
             ],
             n_clicks=0,
+            outline=False,
         )
 
-    return html.Button(
-        id=ids.SELECTED_ITEM_BUTTON,
-        children="Select an item",
-        n_clicks=0,
+    return dbc.Button(
+        id=ids.SELECTED_ITEM_BUTTON, children="Select an item", n_clicks=0, color="dark"
     )

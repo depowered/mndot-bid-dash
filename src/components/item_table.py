@@ -1,4 +1,4 @@
-from dash import Dash, State, ctx, dash_table, html, no_update
+from dash import Dash, State, ctx, dash_table, no_update
 from dash.dependencies import Input, Output
 
 from src.data.item_data import ItemData, ItemTableData
@@ -29,19 +29,31 @@ def _create_data_table(data: ItemTableData = blank_row_data) -> dash_table.DataT
     ]
 
     style_cell = {
+        "background-color": "rgb(68, 68, 68)",
+        "border": "1px solid rgb(87, 87, 87)",
         "text-align": "left",
         "font-size": "16px",
+        "font-family": "var(--bs-body-font-family)",
         "padding-right": "5px",
         "padding-left": "5px",
     }
 
     style_header = {
         "background-color": "black",
+        "border": "1px solid rgb(87, 87, 87)",
+        "font-family": "var(--bs-body-font-family)",
         "font-weight": "bold",
         "color": "white",
         "padding-right": "5px",
         "padding-left": "5px",
     }
+
+    style_data_conditional = [
+        {
+            "if": {"row_index": "odd"},
+            "backgroundColor": "rgb(54, 54, 54)",
+        }
+    ]
 
     row_selectable = "single"
     page_size = 20
@@ -54,6 +66,8 @@ def _create_data_table(data: ItemTableData = blank_row_data) -> dash_table.DataT
         style_cell=style_cell,
         style_header=style_header,
         row_selectable=row_selectable,
+        style_data_conditional=style_data_conditional,
+        cell_selectable=False,
     )
 
 
