@@ -59,7 +59,6 @@ def _transform_bid_response_df(bid_response_df: BidResponseDF) -> TransformedBid
     df["item_id"] = bid_response_df["item_id"]
     df["Quantity"] = bid_response_df["quantity"]
     df["unit_price"] = bid_response_df["unit_price"]
-    # df["Unit Price"] = bid_response_df["unit_price"].apply(lambda x: f"${x:,.2f}")
     df["Unit Price"] = bid_response_df["unit_price"].apply(lambda x: x / 100)
     df["Bid Type"] = bid_response_df["bid_type"].str.title()
 
@@ -105,7 +104,6 @@ def _join_contract_and_item_data(
         how="left",
         on="contract_id",
     )
-    # merge_contracts["Letting Date"].astype(date)
 
     # Drop extra columns by validating with output DF schema
     df_filtered = BidFigureDF(merge_contracts)

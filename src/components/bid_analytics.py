@@ -21,7 +21,17 @@ def render(app: Dash, bid_data_factory: BidDataFactory) -> html.Div:
             return dash.no_update
 
         item_id = int(selected_row_ids[0])
-        bid_data = bid_data_factory(item_id)
+        try:
+            bid_data = bid_data_factory(item_id)
+        except KeyError:
+            return html.Div(
+                style={"display": "flex", "justify-content": "center"},
+                children=dbc.Alert(
+                    "No bids exist for the selected item. Please try another.",
+                    color="danger",
+                ),
+            )
+
         summary_table = bid_summary_table.render(app, bid_data)
         scatter_plot = bid_scatter_plot.render(app, bid_data)
         mean_plot = bid_mean_plot.render(app, bid_data)
