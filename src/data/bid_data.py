@@ -33,7 +33,7 @@ class BidData:
     def _compute_agg_grouped_by_year_and_bid_type(
         self, agg_func: Callable, agg_column: str
     ) -> pd.DataFrame:
-        df = self.bid_figure_df
+        df = self.bid_figure_df.copy()
         # Add year column
         df["Year"] = df["Letting Date"].dt.year
 
