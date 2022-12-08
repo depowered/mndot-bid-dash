@@ -18,7 +18,7 @@ def render(app: Dash, item_data: ItemData) -> dbc.Button:
                 id=ids.SELECTED_ITEM_BUTTON,
                 children="Select an item using the buttons in the left-most table column",
                 n_clicks=0,
-                color="dark",
+                disabled=True,
             )
 
         item_id = int(selected_row_ids[0])
