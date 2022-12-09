@@ -72,6 +72,11 @@
     border-right-color: rgb(55, 90, 127);
 }
 
+#disclaimer {
+    margin-top: 2em;
+    font-size: small;
+}
+
 /*
 restyle radio items 
 https://dash-bootstrap-components.opensource.faculty.ai/docs/components/button_group/

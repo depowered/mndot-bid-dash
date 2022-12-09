@@ -7,6 +7,13 @@ from src.data.bid_data import BidDataFactory
 
 from . import bid_mean_plot, bid_scatter_plot, bid_summary_table, ids
 
+_data_disclaimer = """The data provided by this application is for informational 
+purposes only and is provided "as-is" without any warranty, express or implied. The data may 
+not be complete, accurate, or up-to-date, and may be subject to change without notice. The 
+data should not be used as the sole basis for making any decisions. Power Geospatial and any 
+related parties shall not be held liable for any damages arising from or in connection with 
+the use of the data provided."""
+
 
 def render(app: Dash, bid_data_factory: BidDataFactory) -> html.Div:
     @app.callback(
@@ -47,7 +54,14 @@ def render(app: Dash, bid_data_factory: BidDataFactory) -> html.Div:
                         dbc.Tab(label="Unit Price vs Time", children=scatter_plot),
                     ],
                     active_tab="tab-0",
-                )
+                ),
+                html.Div(
+                    id=ids.DISCLAIMER,
+                    children=[
+                        html.Strong("Disclaimer:  "),
+                        html.Span(_data_disclaimer),
+                    ],
+                ),
             ],
         )
 

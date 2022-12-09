@@ -25,3 +25,5 @@ BID_SCATTER_PLOT = "bid-scatter-plot"
 BID_SCATTER_PLOT_GRAPH = "bid-scatter-plot-graph"
 BID_MEAN_PLOT = "bid-mean-plot"
 BID_SUMMARY_TABLE = "bid-summary-table"
+
+DISCLAIMER = "disclaimer"
