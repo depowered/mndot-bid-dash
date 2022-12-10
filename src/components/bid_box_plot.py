@@ -7,13 +7,15 @@ from . import ids
 
 
 def render(app: Dash, bid_data: BidData) -> html.Div:
-    fig = px.line(
-        bid_data.mean_unit_price_by_year(),
+    fig = px.box(
+        bid_data.box_plot_df(),
         x="Year",
         y="Unit Price",
         color="Bid Type",
-        symbol="Bid Type",
         template="plotly_dark",
+        category_orders={
+            "Bid Type": ["Engineer", "Winning", "Losing"],
+        },
     )
-    graph = dcc.Graph(figure=fig)
-    return html.Div(id=ids.BID_MEAN_PLOT, children=graph)
+    graph = dcc.Graph(id=ids.BID_BOX_PLOT_GRAPH, figure=fig)
+    return html.Div(id=ids.BID_BOX_PLOT, children=graph)

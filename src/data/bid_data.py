@@ -45,13 +45,6 @@ class BidData:
 
         return agg
 
-    def mean_unit_price_by_year(self) -> pd.DataFrame:
-        filter_columns = ["Letting Date", "Bid Type", "Unit Price"]
-        df = self.bid_figure_df.filter(items=filter_columns, axis=1)
-        df["Year"] = df["Letting Date"].dt.year
-        group = df.groupby(by=["Year", "Bid Type"])
-        return group.agg(np.mean).reset_index()
-
     def summary_table_df(self) -> pd.DataFrame:
         avg_unit_price = self._compute_agg_grouped_by_year_and_bid_type(
             np.mean, "Unit Price"
@@ -76,3 +69,13 @@ class BidData:
         out_df["Count of Bids Aggregated"] = df["contract_id"]
 
         return out_df
+
+    def box_plot_df(self) -> pd.DataFrame:
+        df = self.bid_figure_df.copy()
+
+        # Add year column
+        df["Year"] = df["Letting Date"].dt.year
+        # Remove extra columns
+        filtered_df = df.filter(["Year", "Bid Type", "Unit Price"])
+
+        return filtered_df
