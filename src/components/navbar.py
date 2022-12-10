@@ -6,14 +6,20 @@ def render() -> dbc.NavbarSimple:
         children=[
             dbc.NavItem(
                 dbc.NavLink(
-                    "By Power Geospatial",
+                    "API Docs",
+                    href="https://mndotbidprices.com/api/v1/docs",
+                    target="_blank",
+                )
+            ),
+            dbc.NavItem(
+                dbc.NavLink(
+                    "Power Geospatial",
                     href="https://www.powergeospatial.xyz/",
                     target="_blank",
                 )
             ),
         ],
         brand="MnDOT Bid Prices Dashboard",
-        # brand_href="#",
         color="primary",
         dark=True,
     )
