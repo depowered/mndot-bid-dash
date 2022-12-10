@@ -1,1 +1,3 @@
-API_SERVER_URL = "http://mndotbidprices.com"
+import os
+
+API_SERVER_URL = os.getenv("API_SERVER_URL")

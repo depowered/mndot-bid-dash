@@ -14,6 +14,9 @@
 			"NODE_VERSION": "none"
 		}
 	},
+	"containerEnv": {
+		"API_SERVER_URL": "https://mndotbidprices.com/api/v1"
+	},
 	// Configure tool-specific properties.
 	"customizations": {
 		// Configure properties specific to VS Code.
