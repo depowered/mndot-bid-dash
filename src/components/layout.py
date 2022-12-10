@@ -4,6 +4,7 @@ from src.data.bid_data import BidDataFactory
 from src.data.item_data import ItemData
 
 from . import (
+    accordion,
     bid_analytics,
     classes,
     ids,
@@ -22,6 +23,7 @@ def create_layout(
         className=classes.APP_DIV,
         children=[
             navbar.render(),
+            html.Div(id=ids.ACCORDION_CONTAINER, children=accordion.render(app)),
             html.Div(
                 id=ids.SPEC_YEAR_SELECTOR_CONTAINER,
                 children=spec_year_selector.render(),

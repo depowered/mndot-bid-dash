@@ -2,6 +2,12 @@
     font-size: xx-large;
 }
 
+.accordion {
+    padding-top: 2em;
+    width: 70vw;
+    margin: 0 auto;
+}
+
 #spec-year-selector-container {
     display: flex;
     justify-content: center;

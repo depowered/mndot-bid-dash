@@ -1,3 +1,5 @@
+ACCORDION_CONTAINER = "accordion-container"
+
 # Spec selector
 SPEC_YEAR_SELECTOR = "spec-year-selector"
 SPEC_YEAR_SELECTOR_CONTAINER = "spec-year-selector-container"
