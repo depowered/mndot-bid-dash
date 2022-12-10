@@ -1,4 +1,4 @@
 # Serve Application
 ```
-$ gunicorn --workers=4 --bind=127.0.0.1:8050 main:server
+$ gunicorn --workers=2 --bind=0.0.0.0:8050 main:server
 ```
