@@ -14,4 +14,4 @@ EXPOSE 8050/tcp
 
 ENV API_SERVER_URL=https://mndotbidprices.com/api/v1
 
-CMD ["gunicorn", "--workers=2", "--bind=0.0.0.0:8050", "main:server"]
+CMD ["gunicorn", "--workers=2", "--bind=0.0.0.0:8050", "--forwarded-allow-ips='10.170.3.217,10.170.3.220'", "main:server"]
