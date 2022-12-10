@@ -5,7 +5,13 @@ from dash.dependencies import Input, Output, State
 
 from src.data.bid_data import BidDataFactory
 
-from . import bid_scatter_plot, bid_summary_table, ids, bid_box_plot
+from . import (
+    bid_scatter_plot,
+    bid_summary_table,
+    ids,
+    bid_box_plot,
+    bid_price_v_quanity,
+)
 
 _data_disclaimer = """The data provided by this application is for informational 
 purposes only and is provided "as-is" without any warranty, express or implied. The data may 
@@ -42,6 +48,7 @@ def render(app: Dash, bid_data_factory: BidDataFactory) -> html.Div:
         summary_table = bid_summary_table.render(app, bid_data)
         scatter_plot = bid_scatter_plot.render(app, bid_data)
         box_plot = bid_box_plot.render(app, bid_data)
+        price_v_quantity = bid_price_v_quanity.render(app, bid_data)
 
         return html.Div(
             id=ids.BID_ANALYTICS,
@@ -52,6 +59,9 @@ def render(app: Dash, bid_data_factory: BidDataFactory) -> html.Div:
                         dbc.Tab(label="Bid Summary Table", children=summary_table),
                         dbc.Tab(label="Box Plot by Year", children=box_plot),
                         dbc.Tab(label="Unit Price vs Time", children=scatter_plot),
+                        dbc.Tab(
+                            label="Unit Price vs Quantity", children=price_v_quantity
+                        ),
                     ],
                     active_tab="tab-0",
                 ),
