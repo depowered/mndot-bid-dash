@@ -46,8 +46,11 @@ class BidData:
         return agg
 
     def summary_table_df(self) -> pd.DataFrame:
+        weighted_mean = lambda x: np.average(
+            x, weights=self.bid_figure_df.loc[x.index, "Quantity"]
+        )
         avg_unit_price = self._compute_agg_grouped_by_year_and_bid_type(
-            np.mean, "Unit Price"
+            weighted_mean, "Unit Price"
         )
         contract_occur_count = self._compute_agg_grouped_by_year_and_bid_type(
             np.count_nonzero, "contract_id"
