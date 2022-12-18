@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mndot-bid-dash"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["depowered <dpwr16@gmail.com>"]
 license = "MIT"
